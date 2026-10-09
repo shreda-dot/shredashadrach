@@ -303,7 +303,9 @@ a {
   font-size: 0.9rem;
   font-weight: 600;
   text-decoration: none;
-  transition: background-color 160ms ease, color 160ms ease,
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
     border-color 160ms ease;
 }
 
@@ -345,7 +347,7 @@ a {
 .portrait-frame {
   display: grid;
   width: clamp(6.25rem, 19vw, 10rem);
-  aspect-ratio: 0.84;
+  aspect-ratio: 3 / 4;
   overflow: hidden;
   flex: 0 0 auto;
   place-items: center;
@@ -399,7 +401,7 @@ a {
 
 .hero-portrait {
   width: 100%;
-  aspect-ratio: 0.82;
+  aspect-ratio: 3 / 4;
   border: 0.55rem solid var(--border);
   border-radius: 1.5rem;
 }
@@ -819,6 +821,11 @@ a {
 
 .about-aside .portrait-frame {
   width: min(100%, 15rem);
+  border-radius: 20px;
+}
+
+.about-aside .portrait-image {
+  border-radius: 20px;
 }
 
 .story-card {
@@ -974,7 +981,9 @@ a {
   border: 1px solid var(--border);
   border-radius: 999px;
   color: var(--foreground);
-  transition: border-color 160ms ease, color 160ms ease,
+  transition:
+    border-color 160ms ease,
+    color 160ms ease,
     background-color 160ms ease;
 }
 
@@ -1191,7 +1200,9 @@ a {
   background: var(--accent);
   color: var(--accent-contrast);
   text-decoration: none;
-  transition: transform 160ms ease, opacity 160ms ease;
+  transition:
+    transform 160ms ease,
+    opacity 160ms ease;
 }
 
 .whatsapp-float:focus-visible {
@@ -1339,7 +1350,7 @@ a {
 
   .hero-portrait {
     width: 100%;
-    aspect-ratio: 0.95;
+    aspect-ratio: 3 / 4;
     border-width: 0.35rem;
     border-radius: 1.1rem;
   }
@@ -1405,6 +1416,15 @@ a {
 
   .about-aside {
     grid-row: 1;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-auto-flow: column;
+    align-items: stretch;
+    max-width: none;
+  }
+
+  .about-aside .portrait-frame {
+    width: 100%;
+    max-width: none;
   }
 
   .resume-entry-heading {

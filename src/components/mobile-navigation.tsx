@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 const links = [
@@ -13,6 +13,7 @@ const links = [
 
 export function MobileNavigation() {
   const [open, setOpen] = useState(false);
+  const wrapRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!open) {
@@ -25,12 +26,26 @@ export function MobileNavigation() {
       }
     }
 
+    function closeOnOutside(event: MouseEvent | TouchEvent) {
+      const target = event.target as Node | null;
+      if (wrapRef.current && target && !wrapRef.current.contains(target)) {
+        setOpen(false);
+      }
+    }
+
     document.addEventListener("keydown", closeOnEscape);
-    return () => document.removeEventListener("keydown", closeOnEscape);
+    document.addEventListener("mousedown", closeOnOutside);
+    document.addEventListener("touchstart", closeOnOutside, { passive: true });
+
+    return () => {
+      document.removeEventListener("keydown", closeOnEscape);
+      document.removeEventListener("mousedown", closeOnOutside);
+      document.removeEventListener("touchstart", closeOnOutside);
+    };
   }, [open]);
 
   return (
-    <div className="mobile-nav-wrap">
+    <div className="mobile-nav-wrap" ref={wrapRef}>
       <button
         className={`mobile-nav-toggle${open ? " is-open" : ""}`}
         type="button"
