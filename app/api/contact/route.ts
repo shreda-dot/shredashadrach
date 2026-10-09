@@ -65,12 +65,10 @@ export async function POST(request: Request) {
   }
 
   const deliveryUrl = process.env.CONTACT_DELIVERY_URL;
-  const recipient = process.env.CONTACT_TO_EMAIL;
-  const token = process.env.CONTACT_DELIVERY_TOKEN;
 
-  if (!deliveryUrl || !recipient) {
+  if (!deliveryUrl) {
     console.error(
-      "Contact delivery is not configured: CONTACT_DELIVERY_URL and CONTACT_TO_EMAIL are required.",
+      "Contact delivery is not configured: CONTACT_DELIVERY_URL is required.",
     );
     return json(
       {
@@ -93,10 +91,14 @@ export async function POST(request: Request) {
   }
 
   if (
-    process.env.NODE_ENV === "production" &&
-    destination.protocol !== "https:"
+    destination.protocol !== "https:" ||
+    destination.hostname !== "formspree.io" ||
+    !/^\/f\/[a-zA-Z0-9]+$/.test(destination.pathname) ||
+    destination.search
   ) {
-    console.error("CONTACT_DELIVERY_URL must use HTTPS in production.");
+    console.error(
+      "CONTACT_DELIVERY_URL must be an HTTPS Formspree form endpoint.",
+    );
     return json(
       { message: "The contact service is temporarily unavailable." },
       503,
@@ -108,12 +110,12 @@ export async function POST(request: Request) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        Accept: "application/json",
       },
       body: JSON.stringify({
-        to: recipient,
-        replyTo: validation.data.email,
         name: validation.data.name,
+        email: validation.data.email,
+        _replyto: validation.data.email,
         message: validation.data.message,
       }),
       signal: AbortSignal.timeout(8_000),

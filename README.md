@@ -1,8 +1,8 @@
 # Shreda portfolio
 
-A restrained portfolio for Shreda (Shadrach), a solo founder and full-stack
-developer in Lagos, Nigeria. Built with the Next.js App Router, TypeScript,
-Tailwind CSS v4, and Zustand for the client-side theme preference.
+A portfolio for Shreda (Shadrach), a solo founder and full-stack developer in
+Lagos, Nigeria. Built with the Next.js App Router, TypeScript, Tailwind CSS v4,
+and Zustand for the client-side theme preference.
 
 ## Requirements
 
@@ -19,30 +19,33 @@ npm run dev
 
 Open <http://localhost:3000>.
 
-Before building, use `.env.local` to set `SITE_URL=http://localhost:3000`.
-The production build requires `SITE_URL` to be set to the canonical site URL.
+Set `SITE_URL=http://localhost:3000` in `.env.local` for local builds. Production
+builds require `SITE_URL` to be set to the canonical HTTPS site URL.
 
 ## Contact delivery
 
-The contact route posts JSON to the server-side `CONTACT_DELIVERY_URL` configured
-in `.env.local` or the deployment environment. The endpoint must accept a JSON
-body containing `to`, `replyTo`, `name`, and `message`, with an optional Bearer
-token from `CONTACT_DELIVERY_TOKEN`. Set `CONTACT_TO_EMAIL` to the recipient
-address. No email provider or credential is built into the application.
+The contact route validates each submission server-side and forwards it to
+Formspree using `CONTACT_DELIVERY_URL`. The example environment file is
+preconfigured with the Formspree endpoint supplied for this site. In Formspree,
+set `ezinwa.ugochukw@gmail.com` as the form's **Target Email**; the endpoint
+does not choose the receiving inbox. Add `CONTACT_DELIVERY_URL` to the Vercel
+project environment variables before deploying.
 
-The form validates submissions on the server, uses a honeypot, and applies a
-per-process in-memory limit of five submissions per ten minutes. This basic
-limit is not shared between Vercel function instances. Use a shared rate-limit
-service before relying on it for production abuse protection.
+The form uses a honeypot and applies a per-process in-memory limit of five
+submissions per ten minutes. That basic limiter is not shared between Vercel
+function instances. Use a shared rate-limit service for production abuse
+protection.
 
 ## Content and assets
 
 - Edit profile details and contact links in `src/content/profile.ts`.
-- Edit project facts and case studies in `src/content/projects.ts`.
+- Edit each project's typed content and grouped stack in `src/content/projects/`.
 - Replace visible `[TODO: ...]` copy with verified information before deploying.
-- Supply the portrait at `public/images/shreda.webp`, cropped to keep the face in
-  frame and compressed below 150 KB.
-- The resume page is written from `public/resume.docx` and links to that original CV.
+- The optimized portrait is `public/images/shreda.webp`; the cropped monogram is
+  `public/images/shreda-mark.webp`.
+- The resume page is built from `src/content/resume.ts` and links to the original
+  `public/resume.docx`.
+- The floating WhatsApp button uses the phone number in `src/content/profile.ts`.
 
 Local builds can temporarily bypass the visible TODO check with
 `$env:TODO_CHECK_BYPASS='1'`. Never set that variable in production.

@@ -22,8 +22,8 @@ export function Portrait({ className = "", preload = false }: PortraitProps) {
           src="/images/shreda.webp"
           alt="Portrait of Shreda, founder and full-stack developer in Lagos."
           width={760}
-          height={900}
-          sizes="(max-width: 680px) 92px, 160px"
+          height={1014}
+          sizes="(max-width: 680px) 100vw, (max-width: 1100px) 40vw, 520px"
           preload={preload}
           loading={preload ? undefined : "lazy"}
         />

@@ -12,7 +12,7 @@ export const resume = {
   headline: "Software Engineer",
   location: "Apapa, Lagos, Nigeria",
   phone: "+234 701 187 2350",
-  email: "ezinwaugochukw@gmail.com",
+  email: "ezinwa.ugochukw@gmail.com",
   summary:
     "Software Engineer and Biochemistry graduate with experience building web applications, developing frontend interfaces and Node.js APIs, and providing IT support. Founder of Schooldra, a JAMB and UTME exam-prep platform for Nigerian students.",
   experience: [

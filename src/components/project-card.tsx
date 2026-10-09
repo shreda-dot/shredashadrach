@@ -1,15 +1,23 @@
 import Link from "next/link";
-import type { Project } from "@/content/projects";
+import type { Project } from "@/content/projects/types";
+import { ProjectStack } from "@/components/project-stack";
+import { ProjectStatusBadge } from "@/components/project-status";
 
 export function ProjectCard({ project }: { project: Project }) {
   return (
-    <Link className="project-card" href={`/projects/${project.slug}`}>
-      <span className="project-kicker">{project.category}</span>
-      <h3>{project.name}</h3>
+    <article className="project-card">
+      <div className="project-card-top">
+        <span className="project-kicker">{project.category}</span>
+        <ProjectStatusBadge status={project.status} />
+      </div>
+      <h3>
+        <Link href={`/projects/${project.slug}`}>{project.name}</Link>
+      </h3>
       <p>{project.summary}</p>
-      <span className="text-link">
+      <ProjectStack stack={project.stack} className="project-card-stack" />
+      <Link className="text-link" href={`/projects/${project.slug}`}>
         Read the case study <span aria-hidden="true">→</span>
-      </span>
-    </Link>
+      </Link>
+    </article>
   );
 }

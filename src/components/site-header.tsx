@@ -1,38 +1,30 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { ReactNode } from "react";
-
-const links = [
-  { href: "/projects", label: "Projects" },
-  { href: "/about", label: "About" },
-  { href: "/resume", label: "Resume" },
-  { href: "/contact", label: "Contact" },
-] as const;
+import { MobileNavigation } from "@/components/mobile-navigation";
+import { PrimaryNavigation } from "@/components/primary-navigation";
 
 export function SiteHeader({ themeControl }: { themeControl: ReactNode }) {
   return (
     <header className="site-header">
       <Link className="brand" href="/" aria-label="Shreda home">
-        Shreda
+        <Image
+          className="brand-mark"
+          src="/images/shreda-mark.webp"
+          alt=""
+          width={44}
+          height={42}
+          preload
+        />
+        <span>Shreda</span>
       </Link>
+      <PrimaryNavigation />
       <div className="header-actions">
-        <nav className="desktop-nav" aria-label="Main navigation">
-          {links.map((link) => (
-            <Link href={link.href} key={link.href}>
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-        <details className="mobile-menu">
-          <summary aria-label="Open navigation menu" />
-          <nav className="mobile-nav" aria-label="Mobile navigation">
-            {links.map((link) => (
-              <Link href={link.href} key={link.href}>
-                {link.label}
-              </Link>
-            ))}
-          </nav>
-        </details>
         {themeControl}
+        <Link className="header-contact" href="/contact">
+          Let&apos;s talk <span aria-hidden="true">→</span>
+        </Link>
+        <MobileNavigation />
       </div>
     </header>
   );

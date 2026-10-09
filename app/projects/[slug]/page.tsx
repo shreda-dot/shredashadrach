@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProject, projects } from "@/content/projects";
+import { ProjectStack } from "@/components/project-stack";
+import { ProjectStatusBadge } from "@/components/project-status";
 
 type ProjectPageProps = {
   params: Promise<{ slug: string }>;
@@ -57,29 +59,31 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <p className="eyebrow">{project.category}</p>
         <h1 className="page-title">{project.name}</h1>
         <p className="page-intro">{project.summary}</p>
-        {project.externalUrl ? (
-          <p>
+        <div className="case-status-row">
+          <ProjectStatusBadge status={project.status} />
+          {project.status.label === "Live" ? (
             <a
               className="text-link"
-              href={project.externalUrl}
+              href={project.status.href}
               target="_blank"
               rel="noreferrer"
             >
               Visit {project.name} <span aria-hidden="true">↗</span>
             </a>
-          </p>
-        ) : null}
+          ) : null}
+        </div>
         <dl className="case-meta">
           <div>
             <dt>Role</dt>
             <dd>{project.role}</dd>
           </div>
-          <div>
-            <dt>Stack</dt>
-            <dd>{project.stack}</dd>
-          </div>
         </dl>
       </div>
+
+      <section className="case-stack-section" aria-labelledby="case-stack-heading">
+        <h2 id="case-stack-heading">Stack</h2>
+        <ProjectStack stack={project.stack} className="case-stack" />
+      </section>
 
       <div className="fade-in">
         {project.sections.map((section) => (

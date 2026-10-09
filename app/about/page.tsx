@@ -26,7 +26,11 @@ export default function AboutPage() {
     <div className="page-wrap">
       <div className="page-intro-wrap">
         <p className="eyebrow">About</p>
-        <h1 className="page-title">Founder first. Developer every day.</h1>
+        <h1 className="page-title">Founder first. Builder every day.</h1>
+        <p className="page-intro">
+          I’m Shreda, also known as Shadrach, a solo founder and full-stack
+          developer based in Lagos, Nigeria.
+        </p>
       </div>
       <section className="about-layout fade-in" aria-label="Founder story">
         <div className="about-copy">
@@ -34,7 +38,15 @@ export default function AboutPage() {
             <p key={paragraph}>{paragraph}</p>
           ))}
         </div>
-        <Portrait className="about-portrait" />
+        <div className="about-aside">
+          <Portrait className="about-portrait" />
+          <aside className="story-card">
+            <p className="eyebrow">Based in</p>
+            <strong>Lagos, Nigeria</strong>
+            <p>Biochemistry graduate · Nnamdi Azikiwe University</p>
+            <p>Second Class Honours</p>
+          </aside>
+        </div>
       </section>
     </div>
   );

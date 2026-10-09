@@ -4,6 +4,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { ThemeStoreProvider } from "@/components/theme-store-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { WhatsAppLink } from "@/components/whatsapp-link";
 import "./globals.css";
 
 const headingFont = Cormorant_Garamond({
@@ -86,6 +87,7 @@ export default function RootLayout({
           <SiteHeader themeControl={<ThemeToggle />} />
           <main id="main-content">{children}</main>
           <SiteFooter />
+          <WhatsAppLink />
         </ThemeStoreProvider>
       </body>
     </html>

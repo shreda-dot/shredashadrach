@@ -4,6 +4,7 @@ import { Portrait } from "@/components/portrait";
 import { ProjectCard } from "@/components/project-card";
 import { profile } from "@/content/profile";
 import { projects } from "@/content/projects";
+import { schooldra } from "@/content/projects/schooldra";
 
 export const metadata: Metadata = {
   title: "Shreda — Founder & Full-stack Developer",
@@ -25,19 +26,16 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const schooldra = projects.find((project) => project.slug === "schooldra");
-
   return (
     <div className="page-wrap">
       <section className="hero fade-in" aria-labelledby="hero-title">
-        <Portrait className="hero-portrait" preload />
         <div className="hero-copy">
           <p className="eyebrow">{profile.location} · Founder and developer</p>
           <h1 id="hero-title">{profile.homeHeadline}</h1>
           <p className="hero-intro">
-            I&apos;m {profile.name}, founder of Schooldra. I build its frontend
-            and backend: a JAMB and UTME exam-prep PWA for Nigerian secondary
-            school students.
+            I&apos;m {profile.name} ({profile.alternateName}), founder of
+            Schooldra. I build its frontend and backend for Nigerian
+            secondary-school students aged 16–19.
           </p>
           <div className="button-row">
             <a
@@ -59,6 +57,38 @@ export default function Home() {
             ) : null}
           </div>
         </div>
+        <aside className="hero-visual" aria-label="Shreda, founder of Schooldra">
+          <div className="hero-visual-heading">
+            <span>01 / LAGOS</span>
+            <span className="hero-initial" aria-hidden="true">
+              S.
+            </span>
+          </div>
+          <div className="hero-visual-main">
+            <Portrait className="hero-portrait" preload />
+            <div className="hero-facts">
+              <div>
+                <span>FOCUS</span>
+                <strong>Founder-led product</strong>
+              </div>
+              <div>
+                <span>BUILT FOR</span>
+                <strong>Nigerian students</strong>
+              </div>
+            </div>
+          </div>
+          <Link
+            className="hero-identity"
+            href="/about"
+            aria-label="Read more about Shreda"
+          >
+            <span>
+              <strong>{profile.name}</strong>
+              <small>Founder &amp; full-stack developer</small>
+            </span>
+            <span aria-hidden="true">↗</span>
+          </Link>
+        </aside>
       </section>
 
       <section className="section-block fade-in" aria-labelledby="capabilities">
