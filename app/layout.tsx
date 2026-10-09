@@ -5,6 +5,8 @@ import { SiteHeader } from "@/components/site-header";
 import { ThemeStoreProvider } from "@/components/theme-store-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { WhatsAppLink } from "@/components/whatsapp-link";
+import { PersonJsonLd, WebSiteJsonLd } from "@/components/structured-data";
+import { getSiteUrl } from "@/lib/site";
 import "./globals.css";
 
 const headingFont = Cormorant_Garamond({
@@ -23,10 +25,24 @@ const bodyFont = DM_Sans({
   fallback: ["Arial", "sans-serif"],
 });
 
-const siteUrl = process.env.SITE_URL ?? "http://localhost:3000";
+const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: siteUrl,
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   title: {
     default: "Shreda — Founder & Full-stack Developer",
     template: "%s | Shreda",
@@ -36,9 +52,11 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "Shreda",
+    url: "/",
     title: "Shreda — Founder & Full-stack Developer",
     description:
       "Building Schooldra for Nigerian students and practical tools for Nigerian businesses.",
+    locale: "en_NG",
   },
   twitter: {
     card: "summary_large_image",
@@ -78,6 +96,8 @@ export default function RootLayout({
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
+        <WebSiteJsonLd />
+        <PersonJsonLd variant="sitewide" />
       </head>
       <body>
         <ThemeStoreProvider>

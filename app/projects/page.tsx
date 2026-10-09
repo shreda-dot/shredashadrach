@@ -1,8 +1,16 @@
 import type { Metadata } from "next";
 import { ProjectCard } from "@/components/project-card";
 import { projects } from "@/content/projects";
+import { BreadcrumbJsonLd } from "@/components/structured-data";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: "/projects",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   title: "Projects",
   description:
     "Selected work by Shreda: Schooldra, business tooling for Nigerian retail, and Apprelab.",
@@ -31,6 +39,12 @@ export default function ProjectsPage() {
           Products I&apos;m building and projects I&apos;ve contributed to.
         </p>
       </div>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Projects", href: "/projects" },
+        ]}
+      />
       <section className="project-grid fade-in" aria-label="Project list">
         {projects.map((project) => (
           <ProjectCard key={project.slug} project={project} />

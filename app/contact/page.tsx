@@ -2,8 +2,16 @@ import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact-form";
 import { profile } from "@/content/profile";
 import { getWhatsAppHref } from "@/lib/whatsapp";
+import { BreadcrumbJsonLd } from "@/components/structured-data";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: "/contact",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   title: "Contact",
   description:
     "Contact Shreda about Schooldra, product work, or business tooling.",
@@ -34,6 +42,12 @@ export default function ContactPage() {
           For Schooldra, the products I&apos;m building, or a direct question.
         </p>
       </div>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Contact", href: "/contact" },
+        ]}
+      />
       <section className="content-section contact-form-section" aria-labelledby="contact-form-heading">
         <h2 id="contact-form-heading">Get in touch</h2>
         <p>

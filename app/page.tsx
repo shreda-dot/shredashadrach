@@ -5,8 +5,16 @@ import { ProjectCard } from "@/components/project-card";
 import { profile } from "@/content/profile";
 import { projects } from "@/content/projects";
 import { schooldra } from "@/content/projects/schooldra";
+import { BreadcrumbJsonLd } from "@/components/structured-data";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   title: "Shreda — Founder & Full-stack Developer",
   description:
     "I build Schooldra, a JAMB and UTME exam-prep PWA for Nigerian secondary-school students, and practical tools for Nigerian retail.",
@@ -57,6 +65,7 @@ export default function Home() {
 
   return (
     <div className="page-wrap">
+      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }]} />
       <section className="hero fade-in" aria-labelledby="hero-title">
         <div className="hero-copy">
           <p className="eyebrow">{profile.location} · Founder and developer</p>

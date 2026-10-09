@@ -1,7 +1,15 @@
 import type { Metadata } from "next";
 import { resume } from "@/content/resume";
+import { BreadcrumbJsonLd } from "@/components/structured-data";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: "/resume",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   title: "Resume",
   description:
     "Resume for Ezinwa Peter (Shreda), a software engineer and founder based in Lagos, Nigeria.",
@@ -46,6 +54,12 @@ export default function ResumePage() {
           Download original CV (DOCX) <span aria-hidden="true">↓</span>
         </a>
       </header>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Resume", href: "/resume" },
+        ]}
+      />
 
       <section className="content-section resume-section" aria-labelledby="experience-heading">
         <h2 id="experience-heading">Experience</h2>

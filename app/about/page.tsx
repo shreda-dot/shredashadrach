@@ -1,8 +1,19 @@
 import type { Metadata } from "next";
 import { Portrait } from "@/components/portrait";
 import { profile } from "@/content/profile";
+import {
+  BreadcrumbJsonLd,
+  PersonJsonLd,
+} from "@/components/structured-data";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: "/about",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   title: "About",
   description:
     "A short introduction to Shreda, a solo founder and full-stack developer based in Lagos, Nigeria.",
@@ -28,10 +39,17 @@ export default function AboutPage() {
         <p className="eyebrow">About</p>
         <h1 className="page-title">Founder first. Builder every day.</h1>
         <p className="page-intro">
-          I’m Shreda, also known as Shadrach, a solo founder and full-stack
+          I&apos;m Shreda, also known as Shadrach, a solo founder and full-stack
           developer based in Lagos, Nigeria.
         </p>
       </div>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "About", href: "/about" },
+        ]}
+      />
+      <PersonJsonLd variant="about" />
       <section className="about-layout fade-in" aria-label="Founder story">
         <div className="about-copy">
           {profile.about.map((paragraph) => (

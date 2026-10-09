@@ -4,6 +4,10 @@ import { notFound } from "next/navigation";
 import { getProject, projects } from "@/content/projects";
 import { ProjectStack } from "@/components/project-stack";
 import { ProjectStatusBadge } from "@/components/project-status";
+import {
+  ArticleJsonLd,
+  BreadcrumbJsonLd,
+} from "@/components/structured-data";
 
 type ProjectPageProps = {
   params: Promise<{ slug: string }>;
@@ -23,12 +27,21 @@ export async function generateMetadata({
     return {
       title: "Project not found",
       description: "This project page could not be found.",
+      alternates: { canonical: `/projects/${slug}` },
+      robots: { index: false, follow: true },
     };
   }
 
   const title = `${project.name} case study`;
 
   return {
+    alternates: {
+      canonical: `/projects/${project.slug}`,
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
     title,
     description: project.summary,
     openGraph: {
@@ -55,6 +68,19 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <article className="page-wrap">
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Projects", href: "/projects" },
+          { name: project.name, href: `/projects/${project.slug}` },
+        ]}
+      />
+      <ArticleJsonLd
+        headline={`${project.name} case study`}
+        description={project.summary}
+        articleSection={project.category}
+        url={`/projects/${project.slug}`}
+      />
       <div className="page-intro-wrap">
         <p className="eyebrow">{project.category}</p>
         <h1 className="page-title">{project.name}</h1>
