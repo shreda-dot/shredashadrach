@@ -14,7 +14,7 @@ export function WhatsAppLink() {
   if (!href) {
     return process.env.NODE_ENV === "development" ? (
       <span className="whatsapp-float whatsapp-todo" role="status">
-        [TODO: configure WhatsApp]
+        WhatsApp is not configured
       </span>
     ) : null;
   }

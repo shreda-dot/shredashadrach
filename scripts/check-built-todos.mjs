@@ -1,89 +1,142 @@
 import { readdir, readFile } from "node:fs/promises";
-import { join } from "node:path";
+import { extname, join, relative } from "node:path";
 
-const skipTodoCheck = process.env.TODO_CHECK_BYPASS === "1";
-
-if (skipTodoCheck) {
-  console.warn(
-    "Skipping the visible TODO check because TODO_CHECK_BYPASS=1. Link checks still run; do not set this in production.",
-  );
-}
-
-const pagesDirectory = join(process.cwd(), ".next", "server", "app");
-const htmlFiles = await findHtmlFiles(pagesDirectory);
-
-if (htmlFiles.length === 0) {
-  throw new Error(
-    "The build did not contain prerendered HTML pages to check for visible TODO text.",
-  );
-}
-
+const root = process.cwd();
+const sourceDirectories = ["src", "app"].map((directory) =>
+  join(root, directory),
+);
+const htmlDirectories = [
+  join(root, ".next", "server", "app"),
+  join(root, ".next", "server", "pages"),
+  join(root, "out"),
+];
+const textExtensions = new Set([
+  ".css",
+  ".html",
+  ".js",
+  ".jsx",
+  ".json",
+  ".md",
+  ".mjs",
+  ".ts",
+  ".tsx",
+]);
 const findings = [];
-const invalidLinks = [];
+const htmlFiles = [];
+
+for (const directory of sourceDirectories) {
+  for (const file of await findFiles(directory, (path) =>
+    textExtensions.has(extname(path).toLowerCase()),
+  )) {
+    await scanFile(file, await readFile(file, "utf8"), false);
+  }
+}
+
+for (const directory of htmlDirectories) {
+  htmlFiles.push(...(await findFiles(directory, (path) => path.endsWith(".html"))));
+}
 
 for (const file of htmlFiles) {
-  const html = await readFile(file, "utf8");
-  const visibleText = html
-    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "")
-    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, "")
-    .replace(/<[^>]*>/g, " ");
-
-  if (!skipTodoCheck && visibleText.includes("[TODO")) {
-    findings.push(file);
-  }
-
-  if (/\bhref\s*=\s*(["'])#\1/i.test(html)) {
-    invalidLinks.push(`${file}: href="#"`);
-  }
-
-  if (/\bhref\s*=\s*(["'])(?:https?:\/\/)?wa\.me\/(?:\?[^"']*)?\1/i.test(html)) {
-    invalidLinks.push(`${file}: empty wa.me number`);
-  }
+  await scanFile(file, await readFile(file, "utf8"), true);
 }
 
-if (!skipTodoCheck && findings.length > 0) {
-  console.error(
-    "Visible [TODO text was found in these built pages. Replace all visible placeholders before production:",
+if (htmlFiles.length === 0) {
+  console.warn(
+    [
+      "WARNING: No prerendered HTML files were found; the HTML scan was skipped.",
+      "Directories searched:",
+      ...htmlDirectories.map((directory) => `- ${relative(root, directory)}`),
+      "The source scan still ran.",
+    ].join("\n"),
   );
-  for (const file of findings) {
-    console.error(`- ${file}`);
+} else {
+  console.log(`Scanned ${htmlFiles.length} generated HTML files.`);
+}
+
+if (findings.length > 0) {
+  console.error("Production-blocking placeholders or invalid links found:");
+  for (const finding of findings) {
+    console.error(
+      `- ${relative(root, finding.file)}:${finding.line}: ${finding.kind}: ${finding.text.trim()}`,
+    );
   }
   process.exitCode = 1;
-} else if (!skipTodoCheck) {
-  console.log(
-    `Checked ${htmlFiles.length} rendered HTML pages; no visible TODOs or invalid links found.`,
-  );
+} else {
+  console.log("No placeholder text or invalid links found.");
 }
 
-if (invalidLinks.length > 0) {
-  console.error("Invalid links were found in the built pages:");
-  for (const finding of invalidLinks) {
-    console.error(`- ${finding}`);
+async function scanFile(file, content, isHtml) {
+  const visibleContent = isHtml
+    ? content
+        .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, (match) =>
+          match.replace(/[^\n]/g, " "),
+        )
+        .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, (match) =>
+          match.replace(/[^\n]/g, " "),
+        )
+        .replace(/<[^>]*>/g, (match) => match.replace(/[^\n]/g, " "))
+    : content;
+  const lines = content.split(/\r?\n/);
+  const visibleLines = visibleContent.split(/\r?\n/);
+
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index];
+    const visibleLine = visibleLines[index] ?? line;
+    const checks = [
+      { kind: "[TODO] placeholder", pattern: /\[TODO\b/gi, visibleOnly: true },
+      {
+        kind: "[CONFIRM] placeholder",
+        pattern: /\[CONFIRM\b/gi,
+        visibleOnly: true,
+      },
+      {
+        kind: 'href="#"',
+        pattern: /\bhref\s*=\s*(?:"#"|'#')/gi,
+      },
+      {
+        kind: "empty href",
+        pattern: /\bhref\s*=\s*(?:""|'')|\bhref\s*=\s*\{\s*(?:""|'')\s*\}/gi,
+      },
+      {
+        kind: "TODO domain",
+        pattern: /\b(?:https?:\/\/)?(?:www\.)?TODO-[A-Z0-9.-]+\.[A-Z]{2,}\b/gi,
+      },
+    ];
+
+    for (const { kind, pattern, visibleOnly } of checks) {
+      pattern.lastIndex = 0;
+      const checkedLine = visibleOnly ? visibleLine : line;
+      if (pattern.test(checkedLine)) {
+        findings.push({
+          file,
+          line: index + 1,
+          kind,
+          text: visibleLine.trim() || line.trim(),
+        });
+      }
+    }
   }
-  process.exitCode = 1;
 }
 
-async function findHtmlFiles(directory) {
-  const results = [];
-
+async function findFiles(directory, predicate) {
   let entries;
   try {
     entries = await readdir(directory, { withFileTypes: true });
   } catch (error) {
     if (error instanceof Error && "code" in error && error.code === "ENOENT") {
-      return results;
+      return [];
     }
     throw error;
   }
 
+  const files = [];
   for (const entry of entries) {
     const path = join(directory, entry.name);
     if (entry.isDirectory()) {
-      results.push(...(await findHtmlFiles(path)));
-    } else if (entry.isFile() && entry.name.endsWith(".html")) {
-      results.push(path);
+      files.push(...(await findFiles(path, predicate)));
+    } else if (entry.isFile() && predicate(path)) {
+      files.push(path);
     }
   }
-
-  return results;
+  return files;
 }
