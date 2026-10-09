@@ -10,10 +10,10 @@ export function SiteHeader({ themeControl }: { themeControl: ReactNode }) {
       <Link className="brand" href="/" aria-label="Shreda home">
         <Image
           className="brand-mark"
-          src="/images/shreda-mark.webp"
+          src="/icon.svg"
           alt=""
-          width={44}
-          height={42}
+          width={48}
+          height={46}
           preload
         />
         <span>Shreda</span>

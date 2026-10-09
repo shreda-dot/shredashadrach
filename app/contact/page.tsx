@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact-form";
 import { profile } from "@/content/profile";
+import { getWhatsAppHref } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -22,6 +23,8 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
+  const whatsAppHref = getWhatsAppHref();
+
   return (
     <div className="page-wrap">
       <div className="page-intro-wrap">
@@ -47,6 +50,19 @@ export default function ContactPage() {
             {profile.contactEmail}
           </a>
         </p>
+        {whatsAppHref ? (
+          <p>
+            <a
+              className="contact-email-link"
+              href={whatsAppHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Message me on WhatsApp, opens in a new tab"
+            >
+              Message me on WhatsApp
+            </a>
+          </p>
+        ) : null}
         <ul className="social-links" aria-label="Social profiles">
           {profile.socialProfiles.map((social) =>
             social.url !== null ? (
@@ -64,14 +80,6 @@ export default function ContactPage() {
             ) : null,
           )}
         </ul>
-        {profile.socialProfiles.some((social) => social.url === null) ? (
-          <p className="social-profile-todo">
-            {profile.socialProfiles
-              .filter((social) => social.url === null)
-              .map((social) => `${social.name}: ${social.todo}`)
-              .join(" · ")}
-          </p>
-        ) : null}
       </section>
     </div>
   );

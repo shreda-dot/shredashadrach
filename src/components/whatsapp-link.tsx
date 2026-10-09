@@ -1,16 +1,31 @@
-import { profile } from "@/content/profile";
+"use client";
+
+import { usePathname } from "next/navigation";
+import { getWhatsAppHref } from "@/lib/whatsapp";
 
 export function WhatsAppLink() {
-  const phone = profile.phone.replace(/\D/g, "");
-  const href = `https://wa.me/${phone}`;
+  const pathname = usePathname();
+  const href = getWhatsAppHref();
+
+  if (pathname === "/contact") {
+    return null;
+  }
+
+  if (!href) {
+    return process.env.NODE_ENV === "development" ? (
+      <span className="whatsapp-float whatsapp-todo" role="status">
+        [TODO: configure WhatsApp]
+      </span>
+    ) : null;
+  }
 
   return (
     <a
       className="whatsapp-float"
       href={href}
       target="_blank"
-      rel="noreferrer"
-      aria-label="Chat with Shreda on WhatsApp"
+      rel="noopener noreferrer"
+      aria-label="Chat with Shreda on WhatsApp, opens in a new tab"
       title="Chat on WhatsApp"
     >
       <svg aria-hidden="true" viewBox="0 0 24 24">

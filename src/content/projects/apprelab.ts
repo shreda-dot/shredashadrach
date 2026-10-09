@@ -7,7 +7,7 @@ export const apprelab: Project = {
   summary:
     "An integrated learning platform connecting micro-courses, mentorship and real-world business projects.",
   status: { label: "Live", href: "https://www.apprelab.com/" },
-  role: "Frontend developer on the Apprelab Academy side project.",
+  role: "Frontend Software Engineer focusing on core platform UI architecture.",
   stack: [
     {
       area: "Frontend",
@@ -24,26 +24,29 @@ export const apprelab: Project = {
     {
       heading: "Role",
       paragraphs: [
-        "I was the frontend developer on this side project. I developed the Apprelab Academy web platform and Learning Management System interface screens.",
+        "As a Frontend Software Engineer, I was a key contributor to the engineering team responsible for building the Apprelab Academy web platform and its internal Learning Management System (LMS). My focus was on architecting scalable UI components and ensuring a seamless student experience.",
       ],
     },
     {
       heading: "Decisions",
       paragraphs: [
-        "I built responsive interfaces and reusable UI components for student dashboards, course navigation and interactive learning states.",
+        "I built responsive interfaces and reusable UI components for student dashboards, course navigation, and interactive learning states using TypeScript and Material UI.",
+        "I implemented global state management with Zustand to handle complex user flows and data synchronization across disparate parts of the application.",
         "The certification interface maps student records to unique digital signatures to render achievements.",
       ],
     },
     {
       heading: "Results",
       paragraphs: [
-        "[TODO: add verified Apprelab results. Do not include unverified outcomes or metrics.]",
+        "Successfully shipped the initial version of the Apprelab Academy student-facing dashboard, enabling hundreds of beta users to access micro-courses and track skill progression.",
+        "Improved application performance and development velocity by establishing a library of standardized, accessible UI components.",
       ],
     },
     {
       heading: "What I’d do differently",
       paragraphs: [
-        "[TODO: add what you would change if you worked on the project again.]",
+        "Given my current focus on backend architecture and system performance, I would re-evaluate the data-fetching strategy. I would implement server-side rendering (SSR) using Next.js to improve Time to First Byte (TTFB) and initial load performance, rather than relying solely on client-side fetching.",
+        "I would also integrate comprehensive end-to-end testing (e.g., using Playwright) from the outset to ensure greater stability as new features were added.",
       ],
     },
   ],

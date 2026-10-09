@@ -25,7 +25,36 @@ export const metadata: Metadata = {
   },
 };
 
+function stackItems(area: string): readonly string[] {
+  return schooldra.stack.find((group) => group.area === area)?.items ?? [];
+}
+
+function getHost(url: string): string {
+  try {
+    return new URL(url).host;
+  } catch {
+    return url;
+  }
+}
+
 export default function Home() {
+  const frontend = stackItems("Frontend");
+  const backend = stackItems("Backend/Data");
+
+  const heroStack: string[] = [];
+  if (frontend.some((item) => item === "React")) heroStack.push("React");
+  if (backend.some((item) => item === "Supabase")) heroStack.push("Supabase");
+  if (frontend.some((item) => item.startsWith("Tailwind"))) {
+    heroStack.push("Tailwind");
+  }
+
+  const schooldraUrl =
+    schooldra.status.label === "Live"
+      ? schooldra.status.href || profile.schooldraUrl
+      : profile.schooldraUrl;
+  const schooldraHost = getHost(schooldraUrl);
+  const statusLabel = schooldra.status.label.toUpperCase();
+
   return (
     <div className="page-wrap">
       <section className="hero fade-in" aria-labelledby="hero-title">
@@ -34,27 +63,26 @@ export default function Home() {
           <h1 id="hero-title">{profile.homeHeadline}</h1>
           <p className="hero-intro">
             I&apos;m {profile.name} ({profile.alternateName}), founder of
-            Schooldra. I build its frontend and backend for Nigerian
-            secondary-school students aged 16–19.
+            Schooldra, a JAMB/UTME exam-prep PWA for Nigerian
+            secondary-school students aged 16–19. I build its frontend and
+            backend.
           </p>
           <div className="button-row">
             <a
               className="button button-primary"
-              href={profile.schooldraUrl}
+              href={schooldraUrl}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               Visit Schooldra
               <span aria-hidden="true">↗</span>
             </a>
-            {schooldra ? (
-              <Link
-                className="button button-secondary"
-                href={`/projects/${schooldra.slug}`}
-              >
-                Read the case study
-              </Link>
-            ) : null}
+            <Link
+              className="button button-secondary"
+              href={`/projects/${schooldra.slug}`}
+            >
+              Read the case study
+            </Link>
           </div>
         </div>
         <aside className="hero-visual" aria-label="Shreda, founder of Schooldra">
@@ -68,13 +96,23 @@ export default function Home() {
             <Portrait className="hero-portrait" preload />
             <div className="hero-facts">
               <div>
-                <span>FOCUS</span>
-                <strong>Founder-led product</strong>
+                <span>{statusLabel}</span>
+                <a
+                  className="hero-fact-link"
+                  href={schooldraUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {schooldraHost}
+                  <span aria-hidden="true"> ↗</span>
+                </a>
               </div>
-              <div>
-                <span>BUILT FOR</span>
-                <strong>Nigerian students</strong>
-              </div>
+              {heroStack.length > 0 ? (
+                <div>
+                  <span>STACK</span>
+                  <strong>{heroStack.join(", ")}</strong>
+                </div>
+              ) : null}
             </div>
           </div>
           <Link

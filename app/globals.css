@@ -235,17 +235,27 @@ a {
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(20rem, 0.92fr);
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
   align-items: center;
   gap: clamp(2rem, 5vw, 4.5rem);
-  padding-block: clamp(2rem, 5vw, 4rem) clamp(4rem, 8vw, 6rem);
+  padding-block: clamp(1.5rem, 3vh, 2rem) clamp(2rem, 4vh, 3rem);
 }
 
 .hero-copy {
   max-width: 44rem;
 }
 
-.hero h1,
+.hero h1 {
+  max-width: none;
+  margin: 0;
+  font-family: var(--font-heading), Georgia, serif;
+  font-size: clamp(2.25rem, 4.2vw, 3.75rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
 .page-title {
   max-width: 13ch;
   margin: 0;
@@ -351,6 +361,8 @@ a {
 }
 
 .hero-visual {
+  width: min(100%, 420px);
+  justify-self: end;
   min-width: 0;
   border: 1px solid var(--border);
   border-radius: 2rem;
@@ -402,7 +414,8 @@ a {
   gap: 0.8rem;
 }
 
-.hero-facts > div {
+.hero-facts > div,
+.hero-facts > a {
   display: grid;
   min-height: 7rem;
   align-content: start;
@@ -411,6 +424,15 @@ a {
   border-radius: 1.2rem;
   background: var(--background);
   padding: 0.9rem;
+}
+
+.hero-facts > a {
+  color: var(--foreground);
+  text-decoration: none;
+}
+
+.hero-facts > a:focus-visible {
+  outline-offset: 2px;
 }
 
 .hero-facts span {
@@ -422,6 +444,13 @@ a {
 .hero-facts strong {
   font-size: 1rem;
   line-height: 1.4;
+}
+
+.hero-fact-link {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
 }
 
 .hero-identity {
@@ -1150,7 +1179,7 @@ a {
 .whatsapp-float {
   position: fixed;
   z-index: 4;
-  right: clamp(1rem, 3vw, 2rem);
+  right: calc(1rem + env(safe-area-inset-right));
   bottom: calc(1rem + env(safe-area-inset-bottom));
   display: inline-flex;
   width: 3.5rem;
@@ -1163,6 +1192,19 @@ a {
   color: var(--accent-contrast);
   text-decoration: none;
   transition: transform 160ms ease, opacity 160ms ease;
+}
+
+.whatsapp-float:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 4px;
+}
+
+.whatsapp-todo {
+  width: auto;
+  border-radius: 999px;
+  padding-inline: 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 700;
 }
 
 .whatsapp-float:hover {
@@ -1275,10 +1317,12 @@ a {
     grid-template-columns: minmax(0, 1fr);
     gap: 1rem;
     padding-top: 0;
-    padding-bottom: 3rem;
+    padding-bottom: 2rem;
   }
 
   .hero-visual {
+    width: min(100%, 340px);
+    justify-self: center;
     order: -1;
     border-radius: 1.5rem;
     padding: 0.9rem;
@@ -1329,9 +1373,8 @@ a {
   }
 
   .hero h1 {
-    max-width: 17ch;
-    font-size: clamp(2.2rem, 8vw, 3.15rem);
-    line-height: 1;
+    font-size: clamp(2.25rem, 8vw, 2.25rem);
+    line-height: 1.08;
   }
 
   .section-heading-row {
@@ -1376,7 +1419,7 @@ a {
   }
 
   .site-footer {
-    padding: 2.5rem 1rem 1rem;
+    padding: 2.5rem 1rem calc(1rem + env(safe-area-inset-bottom));
   }
 
   .footer-grid {
@@ -1390,6 +1433,7 @@ a {
 
   .footer-bottom {
     margin-top: 2.25rem;
+    padding-bottom: 4rem;
   }
 }
 

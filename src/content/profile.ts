@@ -4,15 +4,14 @@ export const profile = {
   location: "Lagos, Nigeria",
   role: "Solo founder and full-stack developer",
   schooldraUrl: "https://schooldra.com",
-  homeHeadline:
-    "I build a JAMB/UTME exam-prep PWA for Nigerian students.",
+  homeHeadline: "I build JAMB/UTME exam prep for Nigerian students.",
   shortBio:
     "I build Schooldra, a JAMB/UTME exam-prep PWA for Nigerian students aged 16–19, and software for Nigerian retail.",
   capabilities: [
     {
       title: "Frontend",
       description:
-        "React, TypeScript, Vite, React Router, Tailwind CSS v4, Zustand and Framer Motion.",
+        "React and Next.js with TypeScript, Tailwind CSS, Zustand, Framer Motion and MUI.",
     },
     {
       title: "Backend",
@@ -45,7 +44,7 @@ export const profile = {
     },
     {
       name: "Instagram",
-      url: "https://www.instagram.com/shreda_shadrach?igsh=MWdzYnQ4b2psenRvbQ==",
+      url: "https://www.instagram.com/shreda_shadrach",
     },
     {
       name: "X",
@@ -53,8 +52,7 @@ export const profile = {
     },
     {
       name: "LinkedIn",
-      url: null,
-      todo: "[TODO: add LinkedIn profile URL]",
+      url: "https://www.linkedin.com/in/shreda-peter-626294358",
     },
   ],
 } as const;

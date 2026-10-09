@@ -1,8 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { profile } from "@/content/profile";
+import { getWhatsAppHref } from "@/lib/whatsapp";
 
 export function SiteFooter() {
+  const whatsAppHref = getWhatsAppHref();
+
   return (
     <footer className="site-footer">
       <div className="footer-grid">
@@ -10,10 +13,10 @@ export function SiteFooter() {
           <Link className="brand footer-brand" href="/" aria-label="Shreda home">
             <Image
               className="brand-mark"
-              src="/images/shreda-mark.webp"
+              src="/icon.svg"
               alt=""
-              width={44}
-              height={42}
+              width={48}
+              height={46}
             />
             <span>Shreda</span>
           </Link>
@@ -32,18 +35,29 @@ export function SiteFooter() {
           <Link href="/contact">Contact</Link>
         </nav>
         <div className="footer-column">
-          <h2>Connect</h2>
+          <h2>Elsewhere</h2>
           {profile.socialProfiles.map((social) =>
             social.url !== null ? (
-              <a href={social.url} key={social.name} target="_blank" rel="noreferrer">
+              <a
+                href={social.url}
+                key={social.name}
+                target="_blank"
+                rel="noreferrer"
+              >
                 {social.name}
               </a>
-            ) : (
-              <span className="footer-placeholder" key={social.name}>
-                {social.name} · {social.todo}
-              </span>
-            ),
+            ) : null,
           )}
+          {whatsAppHref ? (
+            <a
+              href={whatsAppHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Message me on WhatsApp, opens in a new tab"
+            >
+              Message me on WhatsApp
+            </a>
+          ) : null}
         </div>
         <div className="footer-column footer-contact">
           <h2>Contact</h2>
