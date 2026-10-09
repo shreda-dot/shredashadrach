@@ -95,7 +95,13 @@ async function scanFile(file, content, isHtml) {
       },
       {
         kind: "empty href",
-        pattern: /\bhref\s*=\s*(?:""|'')|\bhref\s*=\s*\{\s*(?:""|'')\s*\}/gi,
+        pattern:
+          /\bhref\s*=\s*(?:"\s*"|'\s*')|\bhref\s*=\s*\{\s*(?:"\s*"|'\s*')\s*\}/gi,
+      },
+      {
+        kind: "empty WhatsApp number",
+        pattern:
+          /\b(?:https?:\/\/)?wa\.me\/(?:[?#][^"'`\s<>]*)?(?=["'`\s)]|$)/gi,
       },
       {
         kind: "TODO domain",
@@ -106,12 +112,12 @@ async function scanFile(file, content, isHtml) {
     for (const { kind, pattern, visibleOnly } of checks) {
       pattern.lastIndex = 0;
       const checkedLine = visibleOnly ? visibleLine : line;
-      if (pattern.test(checkedLine)) {
+      for (const match of checkedLine.matchAll(pattern)) {
         findings.push({
           file,
           line: index + 1,
           kind,
-          text: visibleLine.trim() || line.trim(),
+          text: match[0],
         });
       }
     }
