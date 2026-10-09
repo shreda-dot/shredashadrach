@@ -5,7 +5,7 @@ import { SiteHeader } from "@/components/site-header";
 import { ThemeStoreProvider } from "@/components/theme-store-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { WhatsAppLink } from "@/components/whatsapp-link";
-import { PersonJsonLd, WebSiteJsonLd } from "@/components/structured-data";
+import { WebSiteJsonLd } from "@/components/structured-data";
 import { getSiteUrl } from "@/lib/site";
 import "./globals.css";
 
@@ -97,7 +97,6 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
         <WebSiteJsonLd />
-        <PersonJsonLd variant="sitewide" />
       </head>
       <body>
         <ThemeStoreProvider>

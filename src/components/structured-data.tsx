@@ -1,48 +1,50 @@
-"use client";
-
-import Script from "next/script";
 import { profile } from "@/content/profile";
 import { getSiteUrl } from "@/lib/site";
+
+type JsonLdData = Record<string, unknown>;
 
 function absolute(path: string): string {
   const base = getSiteUrl();
   return new URL(path, base).toString();
 }
 
-type PersonJsonLdProps = {
-  variant?: "sitewide" | "about";
-};
+function JsonLd({ data }: { data: JsonLdData }) {
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(data).replace(/</g, "\\u003c"),
+      }}
+    />
+  );
+}
 
-export function PersonJsonLd({ variant = "sitewide" }: PersonJsonLdProps) {
+export function PersonJsonLd() {
   const sameAs = profile.socialProfiles
     .map((s) => s.url)
-    .filter((url): url is string => Boolean(url));
+    .filter((url): url is NonNullable<typeof url> => url !== undefined);
 
   const jobTitles = ["Software Engineer", "Founder", "Full-stack Developer"];
 
   const data = {
     "@context": "https://schema.org",
     "@type": "Person",
+    "@id": `${absolute("/about")}#person`,
     name: profile.name,
     alternateName: profile.alternateName,
     url: absolute("/about"),
     image: absolute("/images/shreda.webp"),
-    jobTitle: variant === "about" ? jobTitles : undefined,
-    worksFor:
-      variant === "about"
-        ? {
-            "@type": "Organization",
-            name: "Schooldra",
-            url: profile.schooldraUrl,
-          }
-        : undefined,
-    alumniOf:
-      variant === "about"
-        ? {
-            "@type": "CollegeOrUniversity",
-            name: "Nnamdi Azikiwe University",
-          }
-        : undefined,
+    description: profile.shortBio,
+    jobTitle: jobTitles,
+    worksFor: {
+      "@type": "Organization",
+      name: "Schooldra",
+      url: profile.schooldraUrl,
+    },
+    alumniOf: {
+      "@type": "CollegeOrUniversity",
+      name: "Nnamdi Azikiwe University",
+    },
     knowsAbout: [
       "Next.js",
       "React",
@@ -53,25 +55,15 @@ export function PersonJsonLd({ variant = "sitewide" }: PersonJsonLdProps) {
       "Product engineering",
     ],
     email: `mailto:${profile.contactEmail}`,
-    address:
-      variant === "about"
-        ? {
-            "@type": "PostalAddress",
-            addressLocality: "Lagos",
-            addressCountry: "NG",
-          }
-        : undefined,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Lagos",
+      addressCountry: "NG",
+    },
     sameAs,
   };
 
-  return (
-    <Script
-      id="ld-json-person"
-      type="application/ld+json"
-      strategy="afterInteractive"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-    />
-  );
+  return <JsonLd data={data} />;
 }
 
 export function WebSiteJsonLd() {
@@ -89,14 +81,7 @@ export function WebSiteJsonLd() {
     },
   };
 
-  return (
-    <Script
-      id="ld-json-website"
-      type="application/ld+json"
-      strategy="afterInteractive"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-    />
-  );
+  return <JsonLd data={data} />;
 }
 
 type BreadcrumbJsonLdProps = {
@@ -115,14 +100,7 @@ export function BreadcrumbJsonLd({ items }: BreadcrumbJsonLdProps) {
     })),
   };
 
-  return (
-    <Script
-      id={`ld-json-breadcrumb-${items.join(",").length}`}
-      type="application/ld+json"
-      strategy="afterInteractive"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-    />
-  );
+  return <JsonLd data={data} />;
 }
 
 type ArticleJsonLdProps = {
@@ -152,6 +130,7 @@ export function ArticleJsonLd({
     inLanguage: "en-NG",
     author: {
       "@type": "Person",
+      "@id": `${absolute("/about")}#person`,
       name: profile.name,
       url: absolute("/about"),
     },
@@ -170,12 +149,5 @@ export function ArticleJsonLd({
     },
   };
 
-  return (
-    <Script
-      id="ld-json-article"
-      type="application/ld+json"
-      strategy="afterInteractive"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-    />
-  );
+  return <JsonLd data={data} />;
 }

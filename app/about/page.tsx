@@ -16,19 +16,17 @@ export const metadata: Metadata = {
   },
   title: "About",
   description:
-    "A short introduction to Shreda, a solo founder and full-stack developer based in Lagos, Nigeria.",
+    "A short introduction to Shreda, a solo founder and full-stack developer, and how a Biochemistry degree led to software.",
   openGraph: {
     title: "About Shreda",
-    description:
-      "A solo founder and full-stack developer building products in Lagos, Nigeria.",
+    description: "The story behind Schooldra and the developer building it.",
     url: "/about",
     type: "profile",
   },
   twitter: {
     card: "summary_large_image",
     title: "About Shreda",
-    description:
-      "A solo founder and full-stack developer building products in Lagos, Nigeria.",
+    description: "The story behind Schooldra and the developer building it.",
   },
 };
 
@@ -39,8 +37,8 @@ export default function AboutPage() {
         <p className="eyebrow">About</p>
         <h1 className="page-title">Founder first. Builder every day.</h1>
         <p className="page-intro">
-          I&apos;m Shreda, also known as Shadrach, a solo founder and full-stack
-          developer based in Lagos, Nigeria.
+          A short introduction: who I am, how I got into software, and what
+          I&apos;m building now.
         </p>
       </div>
       <BreadcrumbJsonLd
@@ -49,8 +47,8 @@ export default function AboutPage() {
           { name: "About", href: "/about" },
         ]}
       />
-      <PersonJsonLd variant="about" />
-      <section className="about-layout fade-in" aria-label="Founder story">
+      <PersonJsonLd />
+      <section className="about-layout fade-in" aria-label="My story">
         <div className="about-copy">
           {profile.about.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
@@ -60,9 +58,11 @@ export default function AboutPage() {
           <Portrait className="about-portrait" />
           <aside className="story-card">
             <p className="eyebrow">Based in</p>
-            <strong>Lagos, Nigeria</strong>
-            <p>Biochemistry graduate · Nnamdi Azikiwe University</p>
-            <p>Second Class Honours</p>
+            <strong>{profile.location}</strong>
+            <p>
+              {profile.education.field} graduate · {profile.education.school}
+            </p>
+            <p>{profile.education.honours}</p>
           </aside>
         </div>
       </section>

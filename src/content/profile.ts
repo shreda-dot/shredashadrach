@@ -2,11 +2,16 @@ export const profile = {
   name: "Shreda",
   alternateName: "Shadrach",
   location: "Lagos, Nigeria",
+  education: {
+    field: "Biochemistry",
+    school: "Nnamdi Azikiwe University",
+    honours: "Second Class Honours",
+  },
   role: "Solo founder and full-stack developer",
   schooldraUrl: "https://schooldra.com",
   homeHeadline: "I build JAMB/UTME exam prep for Nigerian students.",
   shortBio:
-    "I build Schooldra, a JAMB/UTME exam-prep PWA for Nigerian students aged 16–19, and software for Nigerian retail.",
+    "Schooldra is the Progressive Web App behind it, built for students aged 16–19. I also make inventory and admin software for retail businesses.",
   capabilities: [
     {
       title: "Frontend",
@@ -21,19 +26,18 @@ export const profile = {
     {
       title: "PWA and integrations",
       description:
-        "PWA delivery, Flutterwave, Resend, Gemini and KaTeX for Schooldra.",
+        "Flutterwave payments, Resend email, Gemini and KaTeX math rendering in Schooldra.",
     },
     {
       title: "Business tooling",
       description:
-        "An inventory and admin tool for Nigerian retail, built with Next.js, Tailwind CSS, Zustand and Node.js.",
+        "An inventory and admin system for Nigerian retail, built on the stack above.",
     },
   ],
   about: [
-    "I’m Shreda, also known as Shadrach: a Lagos-based solo founder and full-stack developer. I graduated from Nnamdi Azikiwe University with a degree in Biochemistry and Second Class Honours.",
-    "My interest in technology began during my industrial training at NAFDAC, where I assisted with building some of the organisation’s software. That experience led me toward software development.",
+    "I’m Shreda, also known as Shadrach, a solo founder and full-stack developer. My interest in technology began during my industrial training at NAFDAC, where I assisted with building some of the organisation’s software. That experience led me toward software development.",
     "Today, I’m building Schooldra, a JAMB/UTME exam-prep Progressive Web App for Nigerian secondary school students. I work across the frontend and backend and stay close to the product decisions behind what ships.",
-    "I also build business management tools, including inventory and administration systems for Nigerian retail. My approach is direct: understand the need, build a useful solution, and improve it with feedback.",
+    "Alongside it, I make business management tools, including inventory and administration systems for retailers. My approach is direct: understand the need, build a useful solution, and improve it with feedback.",
   ],
   contactEmail: "ezinwa.ugochukw@gmail.com",
   phone: "+234 701 187 2350",
