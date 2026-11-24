@@ -30,6 +30,9 @@ if (siteUrl) {
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  experimental: {
+    agentUpgrade: "security",
+  },
 };
 
 export default nextConfig;
