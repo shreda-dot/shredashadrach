@@ -10,15 +10,14 @@ export function SiteFooter() {
     <footer className="site-footer">
       <div className="footer-grid">
         <div className="footer-about">
-          <Link className="brand footer-brand" href="/" aria-label="Shreda home">
+          <Link className="brand" href="/" aria-label="Shreda home">
             <Image
-              className="brand-mark"
-              src="/icon.svg"
+              className="brand-logo"
+              src="/icon.png"
               alt=""
-              width={48}
-              height={46}
+              width={512}
+              height={512}
             />
-            <span>Shreda</span>
           </Link>
           <p>
             Founder and full-stack developer.

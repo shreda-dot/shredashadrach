@@ -20,7 +20,7 @@ export type ProjectStatus =
   | { label: "Built"; href?: never };
 
 export type Project = {
-  slug: "schooldra" | "inventory" | "apprelab";
+  slug: "schooldra" | "fabtyna-stores" | "apprelab";
   name: string;
   category: string;
   summary: string;

@@ -9,14 +9,13 @@ export function SiteHeader({ themeControl }: { themeControl: ReactNode }) {
     <header className="site-header">
       <Link className="brand" href="/" aria-label="Shreda home">
         <Image
-          className="brand-mark"
-          src="/icon.svg"
+          className="brand-logo"
+          src="/icon.png"
           alt=""
-          width={48}
-          height={46}
+          width={512}
+          height={512}
           preload
         />
-        <span>Shreda</span>
       </Link>
       <PrimaryNavigation />
       <div className="header-actions">

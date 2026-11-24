@@ -124,20 +124,13 @@ a {
   display: inline-flex;
   width: fit-content;
   align-items: center;
-  gap: 0.7rem;
-  font-size: 1.1rem;
-  font-weight: 700;
   text-decoration: none;
 }
 
-.brand-mark {
-  width: 2.75rem;
-  height: 2.65rem;
+.brand-logo {
+  width: 3rem;
+  height: auto;
   flex: 0 0 auto;
-  border: 1px solid var(--border);
-  border-radius: 0.65rem;
-  background: #fafaf7;
-  object-fit: cover;
 }
 
 .desktop-nav,
@@ -1116,12 +1109,6 @@ a {
   display: grid;
   grid-template-columns: minmax(14rem, 1.3fr) repeat(3, minmax(8rem, 0.8fr));
   gap: clamp(1.5rem, 4vw, 3.5rem);
-}
-
-.footer-brand {
-  color: var(--foreground);
-  font-family: var(--font-heading), Georgia, serif;
-  font-size: 1.4rem;
 }
 
 .footer-about > p {

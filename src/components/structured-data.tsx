@@ -140,7 +140,7 @@ export function ArticleJsonLd({
       url: absolute("/"),
       logo: {
         "@type": "ImageObject",
-        url: absolute("/icon.svg"),
+        url: absolute("/icon.png"),
       },
     },
     mainEntityOfPage: {

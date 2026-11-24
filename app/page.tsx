@@ -5,6 +5,7 @@ import { ProjectCard } from "@/components/project-card";
 import { profile } from "@/content/profile";
 import { projects } from "@/content/projects";
 import { schooldra } from "@/content/projects/schooldra";
+import { fabtynaStores} from "@/content/projects/inventory";
 import { BreadcrumbJsonLd } from "@/components/structured-data";
 
 export const metadata: Metadata = {
@@ -17,11 +18,11 @@ export const metadata: Metadata = {
   },
   title: "Shreda — Founder & Full-stack Developer",
   description:
-    "I build Schooldra, a JAMB and UTME exam-prep PWA for Nigerian secondary-school students, and practical tools for Nigerian retail.",
+    "I build Schooldra, a JAMB and UTME exam-prep PWA, and Fabtyna Stores, a full-stack retail management platform for Nigerian businesses.",
   openGraph: {
     title: "Shreda — Founder & Full-stack Developer",
     description:
-      "Building Schooldra for Nigerian secondary-school students and tools for Nigerian retail.",
+      "Building Schooldra for Nigerian students and Fabtyna Stores for Nigerian retail.",
     url: "/",
     type: "website",
   },
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Shreda — Founder & Full-stack Developer",
     description:
-      "Building Schooldra for Nigerian secondary-school students and tools for Nigerian retail.",
+      "Building Schooldra for Nigerian students and Fabtyna Stores for Nigerian retail.",
   },
 };
 
@@ -51,7 +52,7 @@ export default function Home() {
 
   const heroStack: string[] = [];
   if (frontend.some((item) => item === "React")) heroStack.push("React");
-  if (backend.some((item) => item === "Supabase")) heroStack.push("Supabase");
+  if (backend.some((item) => item === "Supabase" || item === "PostgreSQL")) heroStack.push("PostgreSQL/Supabase");
   if (frontend.some((item) => item.startsWith("Tailwind"))) {
     heroStack.push("Tailwind");
   }
@@ -63,6 +64,9 @@ export default function Home() {
   const schooldraHost = getHost(schooldraUrl);
   const statusLabel = schooldra.status.label.toUpperCase();
 
+  const fabtynaUrl = "https://fabtyna.com";
+  const fabtynaHost = getHost(fabtynaUrl);
+
   return (
     <div className="page-wrap">
       <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }]} />
@@ -73,8 +77,8 @@ export default function Home() {
           <p className="hero-intro">
             I&apos;m {profile.name} ({profile.alternateName}), founder of
             Schooldra, a JAMB/UTME exam-prep PWA for Nigerian
-            secondary-school students aged 16–19. I build its frontend and
-            backend.
+            secondary-school students, and creator of Fabtyna Stores, a
+            full-stack retail management platform.
           </p>
           <div className="button-row">
             <a
@@ -86,15 +90,18 @@ export default function Home() {
               Visit Schooldra
               <span aria-hidden="true">↗</span>
             </a>
-            <Link
+            <a
               className="button button-secondary"
-              href={`/projects/${schooldra.slug}`}
+              href={fabtynaUrl}
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              Read the case study
-            </Link>
+              Visit Fabtyna Stores
+              <span aria-hidden="true">↗</span>
+            </a>
           </div>
         </div>
-        <aside className="hero-visual" aria-label="Shreda, founder of Schooldra">
+        <aside className="hero-visual" aria-label="Shreda, founder and developer">
           <div className="hero-visual-heading">
             <span>01 / LAGOS</span>
             <span className="hero-initial" aria-hidden="true">
@@ -116,12 +123,18 @@ export default function Home() {
                   <span aria-hidden="true"> ↗</span>
                 </a>
               </div>
-              {heroStack.length > 0 ? (
-                <div>
-                  <span>STACK</span>
-                  <strong>{heroStack.join(", ")}</strong>
-                </div>
-              ) : null}
+              <div>
+                <span>RETAIL PLATFORM</span>
+                <a
+                  className="hero-fact-link"
+                  href={fabtynaUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {fabtynaHost}
+                  <span aria-hidden="true"> ↗</span>
+                </a>
+              </div>
             </div>
           </div>
           <Link
@@ -178,7 +191,7 @@ export default function Home() {
         <h2 id="contact-title">Have a thoughtful question about the work?</h2>
         <p>
           I&apos;m focused on building products. If you want to talk about
-          Schooldra or the tools I&apos;m making, send a note.
+          Schooldra, Fabtyna Stores, or the systems I&apos;m making, send a note.
         </p>
         <Link className="button button-primary" href="/contact">
           Contact me <span aria-hidden="true">→</span>

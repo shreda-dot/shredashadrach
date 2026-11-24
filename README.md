@@ -41,8 +41,8 @@ protection.
 - Edit profile details and contact links in `src/content/profile.ts`.
 - Edit each project's typed content and grouped stack in `src/content/projects/`.
 - Replace visible `[TODO: ...]` copy with verified information before deploying.
-- The optimized portrait is `public/images/shreda.webp`; the cropped monogram is
-  `public/images/shreda-mark.webp`.
+- The optimized portrait is `public/images/shreda.webp`; the brand logo and app
+  icon use `app/icon.png`.
 - The resume page is built from `src/content/resume.ts` and links to the original
   `public/resume.docx`.
 - The floating WhatsApp button uses the phone number in `src/content/profile.ts`.

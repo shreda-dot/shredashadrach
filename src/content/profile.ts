@@ -1,43 +1,43 @@
 export const profile = {
   name: "Shreda",
-  alternateName: "Shadrach",
+  alternateName: "Peter Shadrach Ezinwa",
   location: "Lagos, Nigeria",
   education: {
     field: "Biochemistry",
     school: "Nnamdi Azikiwe University",
     honours: "Second Class Honours",
   },
-  role: "Solo founder and full-stack developer",
+  role: "Solo founder and full-stack engineer",
   schooldraUrl: "https://schooldra.com",
-  homeHeadline: "I build JAMB/UTME exam prep for Nigerian students.",
+  homeHeadline: "I build JAMB/UTME exam prep and retail management systems.",
   shortBio:
-    "Schooldra is the Progressive Web App behind it, built for students aged 16–19. I also make inventory and admin software for retail businesses.",
+    "Creator of Schooldra (JAMB/UTME prep for Nigerian students aged 16–19) and Fabtyna Stores (inventory, sales, and admin software for retail businesses).",
   capabilities: [
     {
       title: "Frontend",
       description:
-        "React and Next.js with TypeScript, Tailwind CSS, Zustand, Framer Motion and MUI.",
+        "React and Next.js with TypeScript, Tailwind CSS, Zustand, Framer Motion, and Material UI.",
     },
     {
-      title: "Backend",
+      title: "Backend & Databases",
       description:
-        "Node.js and Supabase, with PostgreSQL row-level security, Realtime and pg_cron.",
+        "Node.js, Express, Prisma ORM, PostgreSQL (Neon / Supabase) with row-level security, Realtime, and pg_cron.",
     },
     {
-      title: "PWA and integrations",
+      title: "PWA & Integrations",
       description:
-        "Flutterwave payments, Resend email, Gemini and KaTeX math rendering in Schooldra.",
+        "Flutterwave payments, Resend transactional emails, Gemini AI integration, and KaTeX math rendering.",
     },
     {
-      title: "Business tooling",
+      title: "Retail & Business Tooling",
       description:
-        "An inventory and admin system for Nigerian retail, built on the stack above.",
+        "Multi-channel inventory, ledger accounting, Lagos date-synchronized analytics, and draft persistence engines.",
     },
   ],
   about: [
-    "I’m Shreda, also known as Shadrach, a solo founder and full-stack developer. My interest in technology began during my industrial training at NAFDAC, where I assisted with building some of the organisation’s software. That experience led me toward software development.",
-    "Today, I’m building Schooldra, a JAMB/UTME exam-prep Progressive Web App for Nigerian secondary school students. I work across the frontend and backend and stay close to the product decisions behind what ships.",
-    "Alongside it, I make business management tools, including inventory and administration systems for retailers. My approach is direct: understand the need, build a useful solution, and improve it with feedback.",
+    "I’m Shreda (Peter Ezinwa), a solo founder and full-stack engineer based in Lagos. My transition into software development began during my training at NAFDAC, where I helped build internal software and quality control tools.",
+    "Today, I build Schooldra—a Progressive Web App helping Nigerian secondary school students prepare for JAMB/UTME exams—and Fabtyna Stores, a full-stack retail inventory and business management system.",
+    "My focus is on direct, pragmatic engineering: designing resilient user interfaces, robust database architectures, and reliable offline/draft state systems that solve real business problems.",
   ],
   contactEmail: "ezinwa.ugochukw@gmail.com",
   phone: "+234 701 187 2350",

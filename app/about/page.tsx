@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import { Portrait } from "@/components/portrait";
 import { profile } from "@/content/profile";
-import {
-  BreadcrumbJsonLd,
-  PersonJsonLd,
-} from "@/components/structured-data";
+import { BreadcrumbJsonLd, PersonJsonLd } from "@/components/structured-data";
 
 export const metadata: Metadata = {
   alternates: {
