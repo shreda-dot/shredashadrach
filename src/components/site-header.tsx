@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
 import type { ReactNode } from "react";
+import { BrandLogo } from "@/components/brand-logo";
 import { MobileNavigation } from "@/components/mobile-navigation";
 import { PrimaryNavigation } from "@/components/primary-navigation";
 
@@ -8,14 +8,7 @@ export function SiteHeader({ themeControl }: { themeControl: ReactNode }) {
   return (
     <header className="site-header">
       <Link className="brand" href="/" aria-label="Shreda home">
-        <Image
-          className="brand-logo"
-          src="/icon.png"
-          alt=""
-          width={512}
-          height={512}
-          preload
-        />
+        <BrandLogo preload />
       </Link>
       <PrimaryNavigation />
       <div className="header-actions">

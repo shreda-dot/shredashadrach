@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import { BrandLogo } from "@/components/brand-logo";
 import { profile } from "@/content/profile";
 import { getWhatsAppHref } from "@/lib/whatsapp";
 
@@ -11,13 +11,7 @@ export function SiteFooter() {
       <div className="footer-grid">
         <div className="footer-about">
           <Link className="brand" href="/" aria-label="Shreda home">
-            <Image
-              className="brand-logo"
-              src="/icon.png"
-              alt=""
-              width={512}
-              height={512}
-            />
+            <BrandLogo />
           </Link>
           <p>
             Founder and full-stack developer.

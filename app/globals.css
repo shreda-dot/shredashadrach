@@ -133,6 +133,15 @@ a {
   flex: 0 0 auto;
 }
 
+.brand-logo-dark,
+:root[data-theme="dark"] .brand-logo-light {
+  display: none;
+}
+
+:root[data-theme="dark"] .brand-logo-dark {
+  display: block;
+}
+
 .desktop-nav,
 .header-actions {
   display: flex;
